@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import AppError from "../../errorHelpers/AppError";
-import { Role } from "../user/user.interface";
+import { IsActive, Role } from "../user/user.interface";
 import { User } from "../user/user.model";
 import { IRide } from "./ride.interface";
 import { Ride } from "./ride.model";

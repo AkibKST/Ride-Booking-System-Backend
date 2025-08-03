@@ -434,6 +434,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "view complete ride",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODhkZGU2OWZlNWVmZDc5NTM1Yzk3YmEiLCJlbWFpbCI6Im5haGlkYWlzbGFtQGdtYWlsLmNvbSIsInJvbGUiOiJEUklWRVIiLCJpYXQiOjE3NTQxOTU0MjAsImV4cCI6MTc1NDI4MTgyMH0.fEUFJkP_-b-sPxGs8SSmt8HQfPIeOipTNe4CnMr-QmA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/driver/view-complete-ride/688de2099c3cb7372e4ed5dc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"driver",
+								"view-complete-ride",
+								"688de2099c3cb7372e4ed5dc"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -668,7 +697,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/driver/admin-approve/688ee7171220fdb8e3fefd25",
+							"raw": "http://localhost:5000/api/v1/driver/admin-approve/688de2099c3cb7372e4ed5dc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -679,7 +708,65 @@
 								"v1",
 								"driver",
 								"admin-approve",
-								"688ee7171220fdb8e3fefd25"
+								"688de2099c3cb7372e4ed5dc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user block toggle",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg5YmE4NTU2MTVmZDg3MTY4ZjVhYTkiLCJlbWFpbCI6InN1cGVyQGdtYWlsLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTc1NDE5NTI1MywiZXhwIjoxNzU0MjgxNjUzfQ.W_F_owbwPvtx7Onrd2TCIgA52qA_d-3xKTIrx7NdYl8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/user/user-block-toggle/688ee62d1220fdb8e3fefd1b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"user-block-toggle",
+								"688ee62d1220fdb8e3fefd1b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create admin",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg5YmE4NTU2MTVmZDg3MTY4ZjVhYTkiLCJlbWFpbCI6InN1cGVyQGdtYWlsLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTc1NDIxOTA5NywiZXhwIjoxNzU0MzA1NDk3fQ.HRmuIyujuc752TdLi66-4MjXabwErllnfMhgwvs59qI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/user/make-admin/688ee62d1220fdb8e3fefd1b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"make-admin",
+								"688ee62d1220fdb8e3fefd1b"
 							]
 						}
 					},

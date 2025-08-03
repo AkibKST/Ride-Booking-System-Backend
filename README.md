@@ -8,6 +8,36 @@
 
 This project implements a secure, scalable backend API for a ride booking system using Express.js and Mongoose. The system supports three user roles: **admin**, **rider**, and **driver**, each with specific capabilities:
 
+# Covered topic
+
+- 🔐 Authentication
+- 🎭 Role-based Authorization
+- 🧍 Rider & Driver Logic
+- 🚗 Ride Management Logic
+- 📦 Modular Code Architecture
+- 🔁 Proper API Endpoints
+
+📌 Minimum Functional Implemented
+
+- ✅ JWT-based login system with three roles: admin, rider, driver
+- ✅ Secure password hashing (using bcrypt or other appropriate way)
+- ✅ Riders should be able to:
+  Request a ride with pickup & destination location
+  Cancel a ride (within allowed window)
+  View ride history
+- ✅ Drivers should be able to:
+  Accept/reject ride requests
+  Update ride status (Picked Up → In Transit → Completed)
+  View earnings history
+  Set availability status (Online/Offline)
+- ✅ Admins should be able to:
+  View all users, drivers, and rides
+  Approve/suspend drivers
+  Block/unblock user accounts
+  Generate reports (optional)
+- ✅ All rides must be stored with complete history
+- ✅ Role-based route protection implemented
+
 - 🧍 **Riders** can request rides, cancel rides, and view ride history
 - 🚗 **Drivers** can accept/reject rides, update ride status, view earnings, and set availability
 - 👑 **Admins** can manage users/drivers, approve drivers, block users, and view system data

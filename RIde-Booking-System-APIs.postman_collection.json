@@ -24,12 +24,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/user/register",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/user/register",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -52,12 +52,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/user/all-users",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/user/all-users",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -88,12 +88,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/auth/login",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/auth/login",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -119,12 +119,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/auth/login",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/auth/login",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -150,12 +150,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/auth/login",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/auth/login",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -181,12 +181,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/auth/refresh-token",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/auth/refresh-token",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -212,12 +212,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/auth/logout",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/auth/logout",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -243,12 +243,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/auth/reset-password",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/auth/reset-password",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -285,12 +285,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/driver/createDriverProfile",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/driver/createDriverProfile",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -313,12 +313,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/driver/",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/driver/",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -350,12 +350,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/driver/availability/688de2099c3cb7372e4ed5dc",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/driver/availability/688de2099c3cb7372e4ed5dc",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -379,12 +379,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/driver/ride/688e559e29dca8307f3da7df/accept",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/driver/ride/688e559e29dca8307f3da7df/accept",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -418,12 +418,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/driver/update-ride-status/688e559e29dca8307f3da7df",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/driver/update-ride-status/688e559e29dca8307f3da7df",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -447,12 +447,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/driver/view-complete-ride/688de2099c3cb7372e4ed5dc",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/driver/view-complete-ride/688de2099c3cb7372e4ed5dc",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -490,12 +490,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/ride/request",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/ride/request",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -530,12 +530,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/ride/",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/ride/",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -567,12 +567,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/ride/cancelled/688df110c34c23b5bf920bfd",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/ride/cancelled/688df110c34c23b5bf920bfd",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -601,12 +601,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/user/all-users",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/user/all-users",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -629,12 +629,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/driver/",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/driver/",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -669,12 +669,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/ride/",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/ride/",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -697,12 +697,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/driver/admin-approve/688de2099c3cb7372e4ed5dc",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/driver/admin-approve/688de2099c3cb7372e4ed5dc",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -726,12 +726,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/user/user-block-toggle/688ee62d1220fdb8e3fefd1b",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/user/user-block-toggle/688ee62d1220fdb8e3fefd1b",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -755,12 +755,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/user/make-admin/688ee62d1220fdb8e3fefd1b",
-							"protocol": "http",
+							"raw": "ride-booking-system-backend-dusky.vercel.app/api/v1/user/make-admin/688ee62d1220fdb8e3fefd1b",
 							"host": [
-								"localhost"
+								"ride-booking-system-backend-dusky",
+								"vercel",
+								"app"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",

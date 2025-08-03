@@ -2,6 +2,8 @@
 
 # Ride Booking API
 
+### Deploy link: ride-booking-system-backend-dusky.vercel.app
+
 ## Project Overview
 
 This project implements a secure, scalable backend API for a ride booking system using Express.js and Mongoose. The system supports three user roles: **admin**, **rider**, and **driver**, each with specific capabilities:
@@ -25,7 +27,7 @@ The API features JWT-based authentication, role-based authorization, and compreh
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/ride-booking-api.git
+git clone https://github.com/AkibKST/Ride-Booking-System-Backend.git
 cd ride-booking-api
 ```
 
@@ -38,122 +40,152 @@ npm install
 3. Create `.env` file:
 
 ```env
-MONGODB_URI=mongodb://localhost:27017/ride_booking
-JWT_SECRET=your_secure_jwt_secret
-JWT_EXPIRES_IN=15m
-REFRESH_TOKEN_EXPIRY=7d
-PORT=3000
+PORT=5000
+DB_URL=mongodb-uri
+NODE_ENV=development
+
+# JWT
+JWT_ACCESS_SECRET=access_secret
+JWT_ACCESS_EXPIRES=1d
+
+JWT_REFRESH_SECRET=refresh_secret
+JWT_REFRESH_EXPIRES=30d
+
+# BCRYPT
+BCRYPT_SALT_ROUND=10
+
+# SUPER ADMIN
+SUPER_ADMIN_EMAIL=super@gmail.com
+SUPER_ADMIN_PASSWORD=123456789
+
+# GOOGLE
+GOOGLE_CLIENT_SECRET=googleClientSecret
+GOOGLE_CLIENT_ID=googleClientId
+GOOGLE_CALLBACK_URL=http://localhost:5000/api/v1/auth/google/callback
+
+# Express Session
+EXPRESS_SESSION_SECRET=express-session
+
+# Frontend URL
+FRONTEND_URL=http://localhost:5173
 ```
 
 4. Start the server:
 
 ```bash
-npm start
+npm run dev
 ```
 
 ## API Endpoints
 
-### Authentication
+### Authentication Routes
 
-| Endpoint         | Method | Description          | Access  |
-| ---------------- | ------ | -------------------- | ------- |
-| `/auth/register` | POST   | Register new user    | Public  |
-| `/auth/login`    | POST   | User login           | Public  |
-| `/auth/refresh`  | POST   | Refresh access token | Private |
-| `/auth/logout`   | POST   | Invalidate token     | Private |
+# Ride-Sharing API Documentation
 
-### Rider Endpoints
+## Table of Contents
 
-| Endpoint            | Method | Description         |
-| ------------------- | ------ | ------------------- |
-| `/rides`            | POST   | Request new ride    |
-| `/rides/active`     | GET    | Get active ride     |
-| `/rides/history`    | GET    | Get ride history    |
-| `/rides/:id/cancel` | PATCH  | Cancel a ride       |
-| `/rides/:id/rate`   | POST   | Rate completed ride |
+- [Authentication Routes](#authentication-routes)
+- [User Routes](#user-routes)
+- [Driver Routes](#driver-routes)
+- [Ride Routes](#ride-routes)
+- [Role Definitions](#role-definitions)
+- [Notes](#notes)
 
-### Driver Endpoints
+---
 
-| Endpoint                | Method | Description                 |
-| ----------------------- | ------ | --------------------------- |
-| `/drivers/availability` | PATCH  | Set availability status     |
-| `/rides/available`      | GET    | Get available ride requests |
-| `/rides/:id/accept`     | PATCH  | Accept ride request         |
-| `/rides/:id/status`     | PATCH  | Update ride status          |
-| `/drivers/earnings`     | GET    | Get earnings history        |
-| `/drivers/location`     | POST   | Update driver location      |
+## Authentication Routes
 
-### Admin Endpoints
+**Base URL:** `/api/v1/auth`
 
-| Endpoint                     | Method | Description            |
-| ---------------------------- | ------ | ---------------------- |
-| `/admin/users`               | GET    | Get all users          |
-| `/admin/drivers`             | GET    | Get all drivers        |
-| `/admin/rides`               | GET    | Get all rides          |
-| `/admin/drivers/:id/approve` | PATCH  | Approve/suspend driver |
-| `/admin/users/:id/block`     | PATCH  | Block/unblock user     |
-| `/admin/metrics`             | GET    | Get system metrics     |
-| `/admin/reports`             | GET    | Generate reports       |
+| Endpoint           | Method | Access Role             | Description                              |
+| ------------------ | ------ | ----------------------- | ---------------------------------------- |
+| `/login`           | POST   | Public                  | User login with credentials              |
+| `/refresh-token`   | POST   | Public                  | Get new access token using refresh token |
+| `/logout`          | POST   | All authenticated roles | Invalidate user session                  |
+| `/reset-password`  | POST   | All authenticated roles | Reset user password                      |
+| `/google`          | GET    | Public                  | Initiate Google OAuth login              |
+| `/google/callback` | GET    | Public                  | Google OAuth callback handler            |
 
-## Request Examples
+---
 
-### User Registration
+## User Routes
 
-```http
-POST /auth/register
-Content-Type: application/json
+**Base URL:** `/api/v1/user`
 
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "SecurePass123!",
-  "phone": "1234567890",
-  "role": "rider"
-}
-```
+| Endpoint                 | Method | Access Role             | Description              |
+| ------------------------ | ------ | ----------------------- | ------------------------ |
+| `/register`              | POST   | Public                  | Register a new user      |
+| `/:id`                   | PATCH  | All authenticated roles | Update user details      |
+| `/all-users`             | GET    | ADMIN, SUPER_ADMIN      | Fetch all users          |
+| `/user-block-toggle/:id` | PATCH  | ADMIN, SUPER_ADMIN      | Toggle user block status |
+| `/make-admin/:id`        | PATCH  | SUPER_ADMIN             | Promote user to admin    |
 
-### Request a Ride
+---
 
-```http
-POST /rides
-Authorization: Bearer <RIDER_JWT>
-Content-Type: application/json
+## Driver Routes
 
-{
-  "pickup": {
-    "address": "Central Park",
-    "coordinates": [-73.9654, 40.7829]
-  },
-  "destination": {
-    "address": "Empire State Building",
-    "coordinates": [-73.9857, 40.7484]
-  }
-}
-```
+**Base URL:** `/api/v1/driver`
 
-### Update Ride Status
+| Endpoint                  | Method | Access Role                | Description                 |
+| ------------------------- | ------ | -------------------------- | --------------------------- |
+| `/createDriverProfile`    | POST   | USER                       | Create a driver profile     |
+| `/`                       | GET    | ADMIN, SUPER_ADMIN         | Get all drivers             |
+| `/ride/:id/accept`        | PATCH  | DRIVER                     | Accept a ride request       |
+| `/availability/:id`       | PATCH  | DRIVER                     | Update driver availability  |
+| `/admin-approve/:id`      | PATCH  | ADMIN, SUPER_ADMIN         | Approve driver by admin     |
+| `/update-ride-status/:id` | PATCH  | DRIVER                     | Update ride status          |
+| `/view-complete-ride/:id` | GET    | DRIVER, ADMIN, SUPER_ADMIN | View completed ride details |
 
-```http
-PATCH /rides/65a1b2c3d4e5f6a7b8c9d0e1/status
-Authorization: Bearer <DRIVER_JWT>
-Content-Type: application/json
+---
 
-{
-  "status": "in_progress"
-}
-```
+## Ride Routes
 
-### Approve Driver (Admin)
+**Base URL:** `/api/v1/ride`
 
-```http
-PATCH /admin/drivers/65a1b2c3d4e5f6a7b8c9d0e1/approve
-Authorization: Bearer <ADMIN_JWT>
-Content-Type: application/json
+| Endpoint         | Method | Access Role                       | Description                             |
+| ---------------- | ------ | --------------------------------- | --------------------------------------- |
+| `/request`       | POST   | USER, RIDER                       | Request a new ride                      |
+| `/cancelled/:id` | PATCH  | RIDER                             | Cancel a ride before accepting driver   |
+| `/`              | GET    | ADMIN, SUPER_ADMIN, DRIVER, RIDER | all rides driver(req), rider(completed) |
 
-{
-  "isApproved": true
-}
-```
+---
+
+## Role Definitions
+
+| Role          | Description                       |
+| ------------- | --------------------------------- |
+| `PUBLIC`      | No authentication required        |
+| `USER`        | Basic authenticated user          |
+| `RIDER`       | User requesting rides             |
+| `DRIVER`      | Driver managing rides             |
+| `ADMIN`       | Administrative privileges         |
+| `SUPER_ADMIN` | Highest administrative privileges |
+
+---
+
+## Notes
+
+1. **Authentication**:
+
+   - All non-public routes require a valid JWT token
+   - Include token in `Authorization` header as `Bearer <token>`
+
+2. **Authorization**:
+
+   - Role-based access enforced using `checkAuth()` middleware
+   - Requests without proper permissions receive `403 Forbidden`
+
+3. **Dynamic Redirects**:
+   ```http
+   GET /api/v1/auth/google?redirect=/booking
+   Post-login redirects use the value passed in the state parameter
+   ```
+
+Validation:
+
+Endpoints with validateRequest() enforce Zod schema validation
+
+Invalid requests receive 400 Bad Request with error details.
 
 ## Role-Based Access
 
@@ -166,7 +198,7 @@ Content-Type: application/json
 ## Testing
 
 2. Set environment variables in Postman:
-   - `base_url`: `http://localhost:3000`
+   - `base_url`: `http://ride-booking-system-backend-dusky.vercel.app`
    - `admin_token`: JWT from admin login
    - `rider_token`: JWT from rider login
    - `driver_token`: JWT from driver login

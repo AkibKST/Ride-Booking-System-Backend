@@ -5,6 +5,7 @@ import httpStatus from "http-status-codes";
 import { DriverServices } from "./driver.service";
 import { Driver } from "./driver.model";
 import { Types } from "mongoose";
+import AppError from "../../errorHelpers/AppError";
 
 //create user
 const createDriver = catchAsync(async (req: Request, res: Response) => {
@@ -72,9 +73,70 @@ const updateDriverAvailability = catchAsync(
 );
 //---------------------------
 
+//driver approve controller
+const driverApproved = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const updatedDriverApproveStatus = await DriverServices.driverApproved(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Driver approve status updated successfully",
+    data: updatedDriverApproveStatus,
+  });
+});
+//---------------------------
+
+//update ride status controller
+const updateRideStatus = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { userId } = req.user as any;
+  const driver = await Driver.findOne({
+    user_id: userId,
+  });
+
+  if (!driver) {
+    throw new AppError(httpStatus.NOT_FOUND, "Driver not found!");
+  }
+
+  const { _id } = driver;
+
+  const newStatus = req.body.status;
+
+  const result = await DriverServices.updateRideStatus(id, _id, newStatus);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Ride status updated successfully",
+    data: result,
+  });
+});
+//---------------------------
+
+//view complete ride
+const viewCompleteRide = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const completeRides = await DriverServices.viewCompleteRide(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Driver completed rides are retrieved successfully",
+    data: completeRides,
+  });
+});
+//---------------------------
+
 export const DriverControllers = {
   createDriver,
   getAllDrivers,
   updateDriverAvailability,
   acceptRide,
+  driverApproved,
+  updateRideStatus,
+  viewCompleteRide,
 };

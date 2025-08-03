@@ -61,8 +61,38 @@ const getAllUsers = catchAsync(async (req: Request, res: Response) => {
 });
 //----------------------------
 
+//admin services for user block toggle
+const userBlockToggle = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await UserServices.userBlockToggle(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User active status change successfully",
+    data: result,
+  });
+});
+//----------------------------
+
+//admin services for user block toggle
+const makeAdmin = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await UserServices.makeAdmin(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User role change to admin successfully",
+    data: result,
+  });
+});
+//----------------------------
+
 export const UserControllers = {
   createUser,
   updateUser,
   getAllUsers,
+  userBlockToggle,
+  makeAdmin,
 };

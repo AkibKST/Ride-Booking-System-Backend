@@ -25,4 +25,16 @@ router.get(
   UserControllers.getAllUsers
 );
 
+router.patch(
+  "/user-block-toggle/:id",
+  checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
+  UserControllers.userBlockToggle
+);
+
+router.patch(
+  "/make-admin/:id",
+  checkAuth(Role.SUPER_ADMIN),
+  UserControllers.makeAdmin
+);
+
 export const UserRoutes = router;

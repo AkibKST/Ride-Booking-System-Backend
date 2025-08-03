@@ -1,5 +1,5 @@
 import AppError from "../../errorHelpers/AppError";
-import { Role } from "../user/user.interface";
+import { IsActive, Role } from "../user/user.interface";
 import { User } from "../user/user.model";
 import { IDriver } from "./driver.interface";
 import httpStatus from "http-status-codes";
@@ -14,6 +14,10 @@ const createDriver = async (driverData: IDriver) => {
   const user = await User.findById(driverData.user_id);
 
   if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found");
+  }
+
+  if (user.isActive === IsActive.BLOCKED) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found");
   }
 
@@ -44,6 +48,21 @@ const acceptRide = async (rideId: string, driverId: Types.ObjectId) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
+  //Driver validation
+  const driver = await Driver.findById(driverId);
+
+  if (!driver) {
+    throw new AppError(httpStatus.NOT_FOUND, "Driver not found");
+  }
+
+  if (driver.isApproved === false) {
+    throw new AppError(
+      httpStatus.EXPECTATION_FAILED,
+      "Driver is not approved by admin"
+    );
+  }
+
+  //Ride validation
   //validation-1 : Check if ride exists and is still available for acceptance
   const ride = await Ride.findById(rideId).session(session);
 
@@ -99,9 +118,101 @@ const updateDriverAvailability = async (
 };
 //---------------------------
 
+//driver approved by admin
+const driverApproved = async (driverId: string) => {
+  const driver = await Driver.findById(new mongoose.Types.ObjectId(driverId));
+
+  if (!driver) {
+    throw new AppError(httpStatus.NOT_FOUND, "Driver not found");
+  }
+
+  if (driver.isApproved === false) {
+    driver.isApproved = true;
+  } else if (driver.isApproved === true) {
+    driver.isApproved = false;
+  }
+
+  await driver.save();
+
+  return driver;
+};
+//---------------------------
+
+//update ride status
+const updateRideStatus = async (
+  rideId: string,
+  driverId: Types.ObjectId,
+  newStatus: "in_transit" | "completed" | "picked_up"
+) => {
+  const validTransition: {
+    accepted: string;
+    picked_up: string;
+    in_transit: string;
+  } = {
+    accepted: "picked_up",
+    picked_up: "in_transit",
+    in_transit: "completed",
+  };
+
+  const ride = await Ride.findById(rideId);
+
+  if (!ride) {
+    throw new AppError(httpStatus.NOT_FOUND, "Ride not found!");
+  }
+
+  if (ride.driverId?.toString() !== driverId.toString()) {
+    throw new AppError(
+      httpStatus.UNAUTHORIZED,
+      "You are not authorized to update this ride!"
+    );
+  }
+
+  if (
+    !(ride.status in validTransition) ||
+    validTransition[ride.status as keyof typeof validTransition] !== newStatus
+  ) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Invalid ride status transition!"
+    );
+  }
+
+  //update status and timestamp
+  ride.status = newStatus;
+  const timestampField = `${newStatus}At`;
+  if (ride.timestamps && timestampField in ride.timestamps) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (ride.timestamps as any)[timestampField] = new Date();
+  }
+
+  if (newStatus === "completed") {
+    ride.fare = 100.0;
+  }
+
+  await ride.save();
+
+  return ride;
+};
+
+//---------------------------
+
+//view complete ride
+const viewCompleteRide = async (driverId: string) => {
+  const completeRide = await Ride.findOne({
+    driverId: driverId,
+    status: { $in: ["completed"] },
+  });
+
+  return completeRide;
+};
+//---------------------------
+
 export const DriverServices = {
   createDriver,
   getAllDrivers,
   acceptRide,
   updateDriverAvailability,
+  driverApproved,
+  updateRideStatus,
+  viewCompleteRide,
 };

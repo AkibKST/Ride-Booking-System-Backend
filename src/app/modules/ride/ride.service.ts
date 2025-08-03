@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import AppError from "../../errorHelpers/AppError";
 import { Role } from "../user/user.interface";
 import { User } from "../user/user.model";
@@ -9,6 +10,10 @@ import httpStatus from "http-status-codes";
 const requestRide = async (rideData: IRide) => {
   const user = await User.findById(rideData.userId);
   if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found");
+  }
+
+  if (user.isActive === IsActive.BLOCKED) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found");
   }
 
@@ -49,7 +54,7 @@ const cancelRide = async (id: string, updateData: Partial<IRide>) => {
 //---------------------------
 
 // Function to get all rides
-const getAllRides = async (role: string, email: string) => {
+const getAllRides = async (role: string, userId: string) => {
   if (role === Role.DRIVER) {
     const rides = await Ride.find({ status: "requested" })
       .populate(
@@ -65,9 +70,9 @@ const getAllRides = async (role: string, email: string) => {
   }
 
   if (role === Role.RIDER) {
-    console.log(email);
-    const rides = await Ride.aggregate([{ $match: { email } }]);
-    console.log("into the role of rider", rides);
+    const rides = await Ride.find({
+      userId: new mongoose.Types.ObjectId(userId),
+    });
 
     return rides;
   }

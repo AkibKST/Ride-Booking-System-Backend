@@ -10,7 +10,7 @@ const driverSchema = new Schema<IDriver>(
     vehicleNumber: { type: String, required: true },
     vehicleColor: { type: String, required: true },
     vehicleModel: { type: String, required: true },
-    isApproved: { type: Boolean, default: true },
+    isApproved: { type: Boolean, default: false },
     availabilityStatus: {
       type: String,
       enum: ["online", "offline"],

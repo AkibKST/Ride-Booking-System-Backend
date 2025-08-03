@@ -34,13 +34,12 @@ const cancelRide = catchAsync(async (req: Request, res: Response) => {
 
 //get all rides
 const getAllRides = catchAsync(async (req: Request, res: Response) => {
-  console.log(req.user);
-  const { role, email } = req.user as {
+  const { role, userId } = req.user as {
     role: string;
-    email: string;
+    userId: string;
   };
 
-  const rides = await RideServices.getAllRides(role, email);
+  const rides = await RideServices.getAllRides(role, userId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

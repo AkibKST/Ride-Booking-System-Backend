@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import AppError from "../../errorHelpers/AppError";
-import { IAuthProvider, IUser, Role } from "./user.interface";
+import { IAuthProvider, IsActive, IUser, Role } from "./user.interface";
 import { User } from "./user.model";
 import httpStatus from "http-status-codes";
 import bcryptjs from "bcryptjs";
@@ -119,8 +119,58 @@ const getAllUsers = async () => {
 };
 //----------------------------
 
+//admin services for user block toggle
+const userBlockToggle = async (userId: string) => {
+  const user = await User.findByIdAndUpdate(userId);
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "user not found");
+  }
+
+  if (user.isActive === IsActive.BLOCKED) {
+    user.isActive = IsActive.ACTIVE;
+  } else if (user.isActive === IsActive.ACTIVE) {
+    user.isActive = IsActive.BLOCKED;
+  }
+
+  await user.save();
+
+  return user;
+};
+
+//----------------------------
+
+//admin services for create admin
+const makeAdmin = async (userId: string) => {
+  const user = await User.findByIdAndUpdate(userId);
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "user not found");
+  }
+
+  if (user.isActive === IsActive.BLOCKED) {
+    throw new AppError(httpStatus.NOT_FOUND, "user not found");
+  }
+
+  if (user.role === Role.DRIVER || user.role === Role.RIDER) {
+    throw new AppError(
+      httpStatus.CONFLICT,
+      "Driver and Rider  cant be an admin"
+    );
+  }
+
+  user.role = Role.ADMIN;
+
+  await user.save();
+
+  return user;
+};
+//---------------------------
+
 export const UserServices = {
   createUser,
   updateUser,
   getAllUsers,
+  userBlockToggle,
+  makeAdmin,
 };

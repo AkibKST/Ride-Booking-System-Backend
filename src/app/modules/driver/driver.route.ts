@@ -32,4 +32,22 @@ router.patch(
   DriverControllers.updateDriverAvailability
 );
 
+router.patch(
+  "/admin-approve/:id",
+  checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
+  DriverControllers.driverApproved
+);
+
+router.patch(
+  "/update-ride-status/:id",
+  checkAuth(Role.DRIVER),
+  DriverControllers.updateRideStatus
+);
+
+router.get(
+  "/view-complete-ride/:id",
+  checkAuth(Role.DRIVER, Role.ADMIN, Role.SUPER_ADMIN),
+  DriverControllers.viewCompleteRide
+);
+
 export const DriverRoutes = router;

@@ -36,7 +36,7 @@ This project implements a secure, scalable backend API for a ride booking system
   Block/unblock user accounts
   Generate reports (optional)
 - ✅ All rides must be stored with complete history
-- ✅ Role-based route protection implemented
+- ✅ Role-based route protection and Transaction and Rollback implemented into ride model
 
 - 🧍 **Riders** can request rides, cancel rides, and view ride history
 - 🚗 **Drivers** can accept/reject rides, update ride status, view earnings, and set availability
@@ -243,6 +243,8 @@ Invalid requests receive 400 Bad Request with error details.
 ## Video Demo
 
 [Watch 5-minute system walkthrough](https://example.com/video-demo) covering:
+
+# video link: https://screenrec.com/share/9dUQZlgFMm
 
 - Authentication flow
 - Rider features

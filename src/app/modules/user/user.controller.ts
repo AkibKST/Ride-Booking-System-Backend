@@ -61,6 +61,19 @@ const getAllUsers = catchAsync(async (req: Request, res: Response) => {
 });
 //----------------------------
 
+//get me
+const getMe = catchAsync(async (req: Request, res: Response) => {
+  const decodedToken = req.user as JwtPayload;
+  const result = await UserServices.getMe(decodedToken.userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User profile retrieved successfully",
+    data: result,
+  });
+});
+
 //admin services for user block toggle
 const userBlockToggle = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -93,6 +106,7 @@ export const UserControllers = {
   createUser,
   updateUser,
   getAllUsers,
+  getMe,
   userBlockToggle,
   makeAdmin,
 };

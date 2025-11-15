@@ -119,6 +119,15 @@ const getAllUsers = async () => {
 };
 //----------------------------
 
+//get me
+const getMe = async (userId: string) => {
+  const user = await User.findById(userId).select("-password");
+  return {
+    data: user,
+  };
+};
+//----------------------------
+
 //admin services for user block toggle
 const userBlockToggle = async (userId: string) => {
   const user = await User.findByIdAndUpdate(userId);
@@ -171,6 +180,7 @@ export const UserServices = {
   createUser,
   updateUser,
   getAllUsers,
+  getMe,
   userBlockToggle,
   makeAdmin,
 };

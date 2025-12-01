@@ -50,8 +50,24 @@ const getAllRides = catchAsync(async (req: Request, res: Response) => {
 });
 //---------------------------
 
+//get single ride
+const getSingleRide = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id as string;
+
+  const ride = await RideServices.getSingleRide(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Ride retrieved successfully",
+    data: ride,
+  });
+});
+//---------------------------
+
 export const RideControllers = {
   requestRide,
   getAllRides,
   cancelRide,
+  getSingleRide,
 };

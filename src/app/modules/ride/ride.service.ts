@@ -91,8 +91,25 @@ const getAllRides = async (role: string, userId: string) => {
 };
 //---------------------------
 
+// Function to get a single ride by ID
+const getSingleRide = async (id: string) => {
+  const ride = await Ride.findById(id)
+    .populate(
+      "userId",
+      "name email phone picture address role isActive isVerified"
+    )
+    .populate(
+      "driverId",
+      "name email phone picture address role isActive isVerified"
+    );
+
+  return ride;
+};
+//---------------------------
+
 export const RideServices = {
   requestRide,
   getAllRides,
   cancelRide,
+  getSingleRide,
 };

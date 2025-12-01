@@ -28,6 +28,12 @@ router.get(
   RideControllers.getAllRides // Assuming this controller method exists
 );
 
+router.get(
+  "/singleRide/:id",
+  checkAuth(Role.ADMIN, Role.SUPER_ADMIN, Role.DRIVER, Role.RIDER),
+  RideControllers.getSingleRide // Assuming this controller method exists
+);
+
 export const RideRoutes = router;
 // Define your ride-related routes here
 // Example

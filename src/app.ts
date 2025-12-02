@@ -14,16 +14,17 @@ const app = express();
 // Middleware
 app.use(
   expressSession({
-    secret: "your-secret-key",
+    secret: envVars.EXPRESS_SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }, // Set to true if using HTTPS
   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
 app.use(express.json());
+app.set("trust proxy", 1); // trust first proxy
+app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: envVars.FRONTEND_URL,

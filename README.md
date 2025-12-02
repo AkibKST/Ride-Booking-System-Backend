@@ -2,7 +2,7 @@
 
 # Ride Booking API
 
-### Deploy link: ride-booking-system-backend-dusky.vercel.app
+### Deploy link: https://ride-booking-system-backend-kappa.vercel.app
 
 ## Project Overview
 

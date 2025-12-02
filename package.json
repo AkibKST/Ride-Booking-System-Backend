@@ -1,9 +1,10 @@
 {
-  "name": "ride-bokking-system-backend",
+  "name": "ride-booking-system-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./dist/server.js",
     "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
     "lint": "npx eslint ./src",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -34,7 +35,7 @@
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
-    "cloudinary": "^2.8.0",
+    "cloudinary": "^1.41.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.0.1",

@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { NextFunction, Request, Response } from "express";
+import passport from "passport";
 import httpStatus from "http-status-codes";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
@@ -10,7 +12,6 @@ import { setAuthCookie } from "../../utils/setCookie";
 import { JwtPayload } from "jsonwebtoken";
 import { createUserTokens } from "../../utils/userTokens";
 import { envVars } from "../../config/env";
-import passport from "passport";
 
 const credentialsLogin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -27,7 +28,7 @@ const credentialsLogin = catchAsync(
         return next(new AppError(401, info.message));
       }
 
-      const userTokens = await createUserTokens(user);
+      const userTokens = createUserTokens(user);
 
       // delete user.toObject().password
 

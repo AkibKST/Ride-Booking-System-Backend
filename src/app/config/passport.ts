@@ -5,10 +5,84 @@ import {
   Profile,
   VerifyCallback,
 } from "passport-google-oauth20";
+import { Strategy as LocalStrategy } from "passport-local";
 import { Role } from "../modules/user/user.interface";
 import { User } from "../modules/user/user.model";
+import { IsActive } from "../modules/user/user.interface";
 import { envVars } from "./env";
+import bcryptjs from "bcryptjs";
 
+//Local Strategy
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "email",
+      passwordField: "password",
+    },
+    async (email: string, password: string, done) => {
+      try {
+        const isUserExist = await User.findOne({ email });
+
+        // if (!isUserExist) {
+        //     return done(null, false, { message: "User does not exist" })
+        // }
+
+        if (!isUserExist) {
+          return done("User does not exist");
+        }
+
+        if (!isUserExist.isVerified) {
+          // throw new AppError(httpStatus.BAD_REQUEST, "User is not verified")
+          return done("User is not verified");
+        }
+
+        if (
+          isUserExist.isActive === IsActive.BLOCKED ||
+          isUserExist.isActive === IsActive.INACTIVE
+        ) {
+          // throw new AppError(httpStatus.BAD_REQUEST, `User is ${isUserExist.isActive}`)
+          return done(`User is ${isUserExist.isActive}`);
+        }
+        if (isUserExist.isDeleted) {
+          // throw new AppError(httpStatus.BAD_REQUEST, "User is deleted")
+          return done("User is deleted");
+        }
+
+        const isGoogleAuthenticated = isUserExist.auths.some(
+          (providerObjects) => providerObjects.provider == "google"
+        );
+
+        if (isGoogleAuthenticated && !isUserExist.password) {
+          return done(null, false, {
+            message:
+              "You have authenticated through Google. So if you want to login with credentials, then at first login with google and set a password for your Gmail and then you can login with email and password.",
+          });
+        }
+
+        // if (isGoogleAuthenticated) {
+        //     return done("You have authenticated through Google. So if you want to login with credentials, then at first login with google and set a password for your Gmail and then you can login with email and password.")
+        // }
+
+        const isPasswordMatched = await bcryptjs.compare(
+          password as string,
+          isUserExist.password as string
+        );
+
+        if (!isPasswordMatched) {
+          return done(null, false, { message: "Password does not match" });
+        }
+
+        return done(null, isUserExist);
+      } catch (error) {
+        console.log(error);
+        done(error);
+      }
+    }
+  )
+);
+//------------------------
+
+// Google OAuth Strategy
 passport.use(
   new GoogleStrategy(
     {
@@ -55,6 +129,7 @@ passport.use(
     }
   )
 );
+//------------------------
 
 // frontend localhost:5173/login?redirect=/booking -> localhost:5000/api/v1/auth/google?redirect=/booking -> passport -> Google OAuth Consent -> gmail login -> successful -> callback url localhost:5000/api/v1/auth/google/callback -> db store -> token
 

@@ -2,7 +2,9 @@
 
 # Ride Booking API
 
-### Deploy link: https://ride-booking-system-backend-kappa.vercel.app
+### Fronted Live Link: https://ride-booking-system-client.vercel.app
+
+### Backend Live link: https://ride-booking-system-backend-kappa.vercel.app
 
 ## Project Overview
 
@@ -68,37 +70,6 @@ npm install
 ```
 
 3. Create `.env` file:
-
-```env
-PORT=5000
-DB_URL=mongodb-uri
-NODE_ENV=development
-
-# JWT
-JWT_ACCESS_SECRET=access_secret
-JWT_ACCESS_EXPIRES=1d
-
-JWT_REFRESH_SECRET=refresh_secret
-JWT_REFRESH_EXPIRES=30d
-
-# BCRYPT
-BCRYPT_SALT_ROUND=10
-
-# SUPER ADMIN
-SUPER_ADMIN_EMAIL=super@gmail.com
-SUPER_ADMIN_PASSWORD=123456789
-
-# GOOGLE
-GOOGLE_CLIENT_SECRET=googleClientSecret
-GOOGLE_CLIENT_ID=googleClientId
-GOOGLE_CALLBACK_URL=http://localhost:5000/api/v1/auth/google/callback
-
-# Express Session
-EXPRESS_SESSION_SECRET=express-session
-
-# Frontend URL
-FRONTEND_URL=http://localhost:5173
-```
 
 4. Start the server:
 

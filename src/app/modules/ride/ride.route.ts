@@ -9,7 +9,7 @@ const router = Router();
 
 router.post(
   "/request",
-  checkAuth(Role.USER, Role.RIDER),
+  checkAuth(Role.USER, Role.RIDER, Role.ADMIN, Role.SUPER_ADMIN),
   validateRequest(RideValidation.createRideValidation),
   RideControllers.requestRide
 );

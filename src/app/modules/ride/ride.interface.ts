@@ -19,6 +19,8 @@ export interface IRide {
     | "picked_up"
     | "accepted";
   fare?: number;
+  distance: number;
+  duration: string;
   timestamps: {
     requestedAt: Date;
     acceptedAt: Date;

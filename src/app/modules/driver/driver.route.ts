@@ -7,6 +7,7 @@ import { createDriverSchema } from "./driver.validation";
 
 const router = Router();
 
+//create driver profile api
 router.post(
   "/createDriverProfile",
   checkAuth(Role.USER),

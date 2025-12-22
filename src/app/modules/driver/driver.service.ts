@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import AppError from "../../errorHelpers/AppError";
 import { IsActive, Role } from "../user/user.interface";
 import { User } from "../user/user.model";
@@ -6,9 +7,15 @@ import httpStatus from "http-status-codes";
 import { Driver } from "./driver.model";
 import mongoose, { Types } from "mongoose";
 import { Ride } from "../ride/ride.model";
+import { createUserTokens } from "../../utils/userTokens";
+import { setAuthCookie } from "../../utils/setCookie";
+import { Response } from "express";
 
 //create driver
-const createDriver = async (driverData: IDriver) => {
+const createDriver = async (
+  res: Response<any, Record<string, any>>,
+  driverData: IDriver
+) => {
   // Logic to create a driver in the database
 
   const user = await User.findById(driverData.user_id);
@@ -24,6 +31,9 @@ const createDriver = async (driverData: IDriver) => {
   if (user.role === Role.USER) {
     user.role = Role.DRIVER;
     await user.save();
+
+    const userToken = createUserTokens(user);
+    setAuthCookie(res, userToken);
   }
 
   const driver = await Driver.create(driverData);
@@ -207,6 +217,23 @@ const viewCompleteRide = async (driverId: string) => {
 };
 //---------------------------
 
+//get my profile
+const getMyProfile = async (userId: string) => {
+  const driver = await Driver.findOne({ user_id: userId });
+
+  if (!driver) {
+    throw new AppError(httpStatus.NOT_FOUND, "Driver profile not found");
+  }
+
+  const myProfile = await Driver.findById(driver._id).populate(
+    "user_id",
+    "name email phone picture address role isActive isVerified"
+  );
+
+  return myProfile;
+};
+//---------------------------
+
 export const DriverServices = {
   createDriver,
   getAllDrivers,
@@ -215,4 +242,5 @@ export const DriverServices = {
   driverApproved,
   updateRideStatus,
   viewCompleteRide,
+  getMyProfile,
 };

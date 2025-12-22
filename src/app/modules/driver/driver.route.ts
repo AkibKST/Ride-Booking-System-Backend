@@ -51,4 +51,10 @@ router.get(
   DriverControllers.viewCompleteRide
 );
 
+router.get(
+  "/myProfile",
+  checkAuth(Role.DRIVER),
+  DriverControllers.getMyProfile
+);
+
 export const DriverRoutes = router;

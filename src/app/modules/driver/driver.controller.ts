@@ -131,6 +131,22 @@ const viewCompleteRide = catchAsync(async (req: Request, res: Response) => {
 });
 //---------------------------
 
+//get my profile
+const getMyProfile = catchAsync(async (req: Request, res: Response) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { userId } = req.user as any;
+
+  const myProfile = await DriverServices.getMyProfile(userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "My profile retrieved successfully",
+    data: myProfile,
+  });
+});
+//---------------------------
+
 export const DriverControllers = {
   createDriver,
   getAllDrivers,
@@ -139,4 +155,5 @@ export const DriverControllers = {
   driverApproved,
   updateRideStatus,
   viewCompleteRide,
+  getMyProfile,
 };

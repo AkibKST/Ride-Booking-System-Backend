@@ -100,7 +100,7 @@ const getSingleRide = async (id: string) => {
     )
     .populate(
       "driverId",
-      "name email phone picture address role isActive isVerified"
+      "user_id vechicleType vechicleColor vechicleNumber licenseNumber isApproved isActive"
     );
 
   return ride;

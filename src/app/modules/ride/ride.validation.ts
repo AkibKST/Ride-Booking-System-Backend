@@ -26,6 +26,7 @@ const createRideValidation = z.object({
 });
 
 const updateRideValidation = z.object({
+  driverId: z.string().optional(),
   status: z
     .enum(["requested", "in_transit", "completed", "cancelled", "picked_up"])
     .optional(),

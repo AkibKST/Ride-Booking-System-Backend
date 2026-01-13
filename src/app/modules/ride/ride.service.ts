@@ -98,10 +98,15 @@ const getSingleRide = async (id: string) => {
       "userId",
       "name email phone picture address role isActive isVerified"
     )
-    .populate(
-      "driverId",
-      "user_id vechicleType vechicleColor vechicleNumber licenseNumber isApproved isActive"
-    );
+    .populate({
+      path: "driverId",
+      select:
+        "vechicleType vechicleColor vechicleNumber licenseNumber isApproved isActive",
+      populate: {
+        path: "user_id", // This is the field inside driver document that references User
+        select: "name email phone picture address role isActive isVerified",
+      },
+    });
 
   return ride;
 };

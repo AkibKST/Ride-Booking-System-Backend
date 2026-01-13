@@ -13,6 +13,9 @@ const createRideValidation = z.object({
     latitude: z.number().min(-90).max(90),
     longitude: z.number().min(-180).max(180),
   }),
+  fare: z.number().min(0, "Fare must be a positive number"),
+  distance: z.number().min(0, "Distance must be a positive number"),
+  duration: z.string().nonempty("Duration is required"),
   status: z.enum([
     "requested",
     "in_transit",

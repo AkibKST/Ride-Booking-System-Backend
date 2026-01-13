@@ -53,7 +53,12 @@ const rideSchema = new Schema<IRide>({
   },
   fare: {
     type: Number,
-    default: null,
+  },
+  distance: {
+    type: Number,
+  },
+  duration: {
+    type: String,
   },
   timestamps: {
     requestedAt: { type: Date, default: Date.now },

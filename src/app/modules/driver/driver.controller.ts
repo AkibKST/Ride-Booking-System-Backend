@@ -10,7 +10,7 @@ import AppError from "../../errorHelpers/AppError";
 //create user
 const createDriver = catchAsync(async (req: Request, res: Response) => {
   const driverData = req.body;
-  const driver = await DriverServices.createDriver(driverData);
+  const driver = await DriverServices.createDriver(res, driverData);
 
   sendResponse(res, {
     statusCode: httpStatus.CREATED,

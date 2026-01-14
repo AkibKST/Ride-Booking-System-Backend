@@ -4,6 +4,7 @@ import { AuthRoutes } from "../modules/auth/auth.route";
 import { DriverRoutes } from "../modules/driver/driver.route";
 import { RideRoutes } from "../modules/ride/ride.route";
 import { OtpRoutes } from "../modules/otp/otp.route";
+import { PaymentRoutes } from "../modules/payment/payment.route";
 
 export const router = Router();
 
@@ -27,6 +28,10 @@ const moduleRoutes = [
   {
     path: "/ride",
     route: RideRoutes,
+  },
+  {
+    path: "/payment",
+    route: PaymentRoutes,
   },
 ];
 

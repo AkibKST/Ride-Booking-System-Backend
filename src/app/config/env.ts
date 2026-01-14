@@ -36,6 +36,11 @@ interface EnvConfig {
   REDIS_PORT: string;
   REDIS_USERNAME: string;
   REDIS_PASSWORD: string;
+
+  SSL_COMMERZ_STORE_ID: string;
+  SSL_COMMERZ_STORE_PASSWORD: string;
+  SSL_COMMERZ_API_BASE_URL: string;
+  APP_BASE_URL: string;
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -67,6 +72,10 @@ const loadEnvVariables = (): EnvConfig => {
     "REDIS_PORT",
     "REDIS_USERNAME",
     "REDIS_PASSWORD",
+    "SSL_COMMERZ_STORE_ID",
+    "SSL_COMMERZ_STORE_PASSWORD",
+    "SSL_COMMERZ_API_BASE_URL",
+    "APP_BASE_URL",
   ];
 
   requiredEnvVariables.forEach((key) => {
@@ -105,6 +114,12 @@ const loadEnvVariables = (): EnvConfig => {
       SMTP_FROM: process.env.SMTP_FROM as string,
     },
 
+    SSL_COMMERZ_STORE_ID: process.env.SSL_COMMERZ_STORE_ID as string,
+    SSL_COMMERZ_STORE_PASSWORD: process.env
+      .SSL_COMMERZ_STORE_PASSWORD as string,
+    SSL_COMMERZ_API_BASE_URL: process.env.SSL_COMMERZ_API_BASE_URL as string,
+
+    APP_BASE_URL: process.env.APP_BASE_URL as string,
     REDIS_HOST: process.env.REDIS_HOST as string,
     REDIS_PORT: process.env.REDIS_PORT as string,
     REDIS_USERNAME: process.env.REDIS_USERNAME as string,
